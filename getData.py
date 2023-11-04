@@ -3,23 +3,22 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 ballDf = pd.read_csv('all_seasons.csv')
-seasonAverages = {
-}
 
-def getSeasonAvrg():
+
+def getSeasonAvrg(x, y):
+    seasonAverages = {}
     for i in range(len(ballDf.index)):
-        current = ballDf.loc[i, 'season']
+        current = ballDf.loc[i, x]
         currentStr = current.split('-')[1]
-        points = ballDf.loc[i, 'pts']
+        points = ballDf.loc[i, y]
         if currentStr in seasonAverages:
             seasonAverages[currentStr].append(points)
         else:
             seasonAverages[currentStr] = [points]
-       # seasonAverages[current] = seasonAverages[current].append(ballDf.loc[i, 'pts'])
+    return seasonAverages
 
 
-
-getSeasonAvrg()
+seasonAverages = getSeasonAvrg('season', 'pts')
 
 seasonAveragePoints = []
 for key in seasonAverages:
